@@ -1,0 +1,115 @@
+<style>
+#help_canvas
+{
+	overflow:hidden;
+	background-image:radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+	background-position:0 0, 40px 60px, 130px 270px, 70px 100px;
+	background-color:black;
+	background-size:550px 550px, 350px 350px, 250px 250px, 150px 150px;
+	z-index: 900000;
+}
+	#back_from_help_msg
+	{
+		position: absolute;
+		right:20px;
+		bottom:20px;
+		width:100px;
+		height:100px;
+		border-radius:50px;
+		font-size:40px;
+		border:solid pink 2px;
+		line-height:100px;
+		text-align:center;
+		cursor:pointer;
+		z-index: 900010;
+		display:none;
+	}
+</style>
+
+
+<script>
+(function()
+{
+	$("<div>")
+		.html("返回")
+		.attr({
+			id:"back_from_help_msg"
+		})
+		.appendTo($('body'));
+	var contents=new Array("特别提示：亲，作为一款超现代的网页音乐播放器，强烈建议使用谷歌等超现代浏览器运行以获得完美体验",
+					  "特别提示：亲，当前完美支持chrome27，firefox21，IE10，360chrome7.3+，百度浏览器2.1,搜狗浏览器4.2及其以上版本哦",
+					   "特别提示：亲，按ctrl+alt+c或者鼠标右键颜色管理可打开拾色器，您可以自行选择喜爱的颜色哦",
+					   "键盘上下方向键调节系统音量大小",
+					   "键盘左右方向键短按切换到上一曲，下一曲，长按快进快退",
+					   "键盘空格键暂停和播放",
+					   "键盘alt+R键随机播放歌曲",
+					   "shift+M换到魔方模式",
+					   "shift+N切换到正常模式",
+					   "打开本地音乐文件进行播放 ctrl+o",
+					   "键盘ctrl+alt+B键选取本地壁纸动态切换",
+					   "键盘ctrl+alt+p键打开壁纸选择器",
+					   "自动壁纸模式开启时，ctrl+F1键暂停壁纸更换以及继续壁纸更换",
+					   "键盘Del键开启关闭静音模式",
+					   "修改body背景 		ctrl+alt+b",
+					   "减少body背景透明度	shift+pg down",
+					   "增加body背景透明度	shift+pg up",
+					   "上一张body背景 		alt+pg up",
+					   "下一张body背景 		alt+pg down",
+					   "切换歌曲播放循环模式  ctrl+1",
+					   "隐藏歌曲列表			ctrl+2",
+					   "shift+f收藏当前播放歌曲",
+					   "ctrl+左右方向键快速快进/快退",
+					   "ctrl+alt+L键切换列表"
+					   )
+	var help_canvas = document.getElementById("help_canvas");
+	help_canvas.width=screen.width;
+	help_canvas.height=screen.height;
+    var context=help_canvas.getContext('2d'); 
+    context.font="22px 微软雅黑";
+    var gradient=context.createRadialGradient(help_canvas.width/2,help_canvas.height,0,help_canvas.width/2,0,help_canvas.height);
+    gradient.addColorStop(0,'blue'); 
+    gradient.addColorStop(0.15,'white');
+    gradient.addColorStop(0.3,'purple');
+    gradient.addColorStop(0.45,'deeppink');
+    gradient.addColorStop(0.6,'yellow');
+    gradient.addColorStop(0.75,'orange'); 
+    gradient.addColorStop(0.9,'pink');
+    gradient.addColorStop(1.0,'green');
+    
+    
+    context.fillStyle=gradient;
+    
+    for(var i=0;i<contents.length;i++)
+    {
+    	context.fillText("★  "+contents[i],20,25*(i+1));
+    }
+    $('#back_from_help_msg').click(function()
+    {
+    	$('#help_canvas').css("display","none");
+    	$(this).css("display","none");
+    })
+		$(this).click();
+		$('#back_from_help_msg')
+		.bind("mouseenter",function(){
+			$(this).css("border-color","purple");
+		})
+		.bind("mouseleave",function(){
+			$(this).css("border-color",temp_page_color);
+		})
+		.click(function()
+		{
+			$('#help_canvas').animate({"left":-screen.width+"px","top":-screen.height+"px"},1000);
+			document.getElementById("back_from_help_msg").style.display="none";
+		})
+	$('#item13').click(function()
+	{
+		document.getElementById("back_from_help_msg").style.display="block";
+		$('#help_canvas')
+			.css("left",-screen.width+"px")
+			.css("top",-screen.height+"px")
+			.show()
+			.animate({"left":"0","top":"0"},500);
+	}).click();	
+})()
+	
+</script>

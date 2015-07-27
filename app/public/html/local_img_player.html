@@ -1,0 +1,452 @@
+<style>
+	#local_imgs_show
+{
+	border:solid white 5px;
+	z-index:10004;
+	display:none;
+	width:420px;
+	height:240px;
+	position: absolute;
+	right:20px;
+	top:300px;
+	border-radius:10px;
+	background:-webkit-linear-gradient(139deg,rgba(64,170,91,1),rgba(170,137,64,1),rgba(170,64,137,1),rgba(81,170,64,1));
+	background:-moz-linear-gradient(139deg,rgba(64,170,91,1),rgba(170,137,64,1),rgba(170,64,137,1),rgba(81,170,64,1));
+	background:-ms-linear-gradient(139deg,rgba(64,170,91,1),rgba(170,137,64,1),rgba(170,64,137,1),rgba(81,170,64,1));
+	background:-o-linear-gradient(139deg,rgba(64,170,91,1),rgba(170,137,64,1),rgba(170,64,137,1),rgba(81,170,64,1));
+	background:linear-gradient(139deg,rgba(64,170,91,1),rgba(170,137,64,1),rgba(170,64,137,1),rgba(81,170,64,1));
+}
+#no_imgs_msg
+{
+	width:100%;
+	height:100%;
+	font-size:28px;
+	letter-spacing: 4px;
+	cursor:pointer;
+	z-index: -40;
+	position: absolute;
+	left:0;
+	top:0;
+	
+}
+#local_imgs_show input[type="file"]
+{
+	display:none;
+}
+#img_show1,#img_show2
+{
+	
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	z-index:-50;
+}
+#img_show1
+{
+	opacity:1;
+	z-index: 21;
+}
+#img_show2
+{
+	opacity:0;
+	z-index: 30;
+}
+#local_imgs_show_menu
+{
+	width:400px;
+	height:30px;
+	border-radius:30px;
+	background:black;
+	opacity:0.7;
+	z-index: 500;
+	
+	bottom:5px;
+	border:solid transparent 1px;
+}
+#shang_yi_zhang,#xia_yi_zhang,#local_imgs_player_play_or_pause,#local_imgs_player_open_files
+{
+	cursor:pointer;
+	width:20px;
+	height:20px;
+	border-radius:10px;
+	float:left;
+	margin:5px 3px;
+	position: relative;
+	opacity:0.5;
+}
+#local_imgs_player_open_files
+{
+	background:url(app/public/images/local_imgs_show/2.jpg);
+	background-size:20px;
+	opacity:0.5;
+}
+#shang_yi_zhang
+{
+	background:url(app/public/images/local_imgs_show/1.png) -8px -8px;
+}
+#xia_yi_zhang
+{
+	background:url(app/public/images/local_imgs_show/1.png) -266px -8px;
+	
+}
+#local_imgs_player_play
+{
+	
+	left:0;
+	top:0;
+	width:20px;
+	height:20px;
+	border-radius:10px;
+	background:url(app/public/images/local_imgs_show/1.png) -137px -10px;
+	z-index: 10;
+}
+#local_imgs_player_pause
+{
+	
+	left:0;
+	top:0;
+	width:20px;
+	height:20px;
+	border-radius:10px;
+	background:url(app/public/images/local_imgs_show/1.png) -202px -9px;
+	opacity:0;
+	z-index: 5;
+}
+#local_imgs_alpha_range
+{
+	background:lightgray;
+	right:15px;
+	top:11px;
+	opacity:0.5;
+}
+#local_imgs_speed_range
+{
+	background:lightgray;
+	right:100px;
+	top:11px;
+	opacity:0.5;
+}
+#local_imgs_rotate_range
+{
+	background:lightgray;
+	right:200px;
+	top:11px;
+	opacity:0.5;
+}
+#local_imgs_alpha_range_inner_div,#local_imgs_speed_range_inner_div,#local_imgs_rotate_range_inner_div
+{
+	background:silver;
+	opacity:0.5;
+}
+</style>
+
+<div id="no_imgs_msg">
+				<br>
+				亲，点击菜单中文件夹图标添加本地图片哦!
+			</div>
+			<input type="file" multiple="multiple" id="choose_local_imgs_to_play" onchange="choose_local_imgs_to_play(this.files)" accept="image/*" />
+ 		<img id="img_show1" class="img_show">
+ 		<img id="img_show2" class="img_show">
+ 		<div id="local_imgs_show_menu">
+ 			
+ 			<div id="shang_yi_zhang" onclick="change_to_previous_img()"></div>
+ 			<div id="local_imgs_player_play_or_pause" onclick="control_play_and_pause()">
+ 				<div id="local_imgs_player_play"></div>
+ 				<div id="local_imgs_player_pause"></div>
+ 				
+ 				
+ 			</div>
+ 			
+ 			<div id="xia_yi_zhang" onclick="change_to_next_img()"></div>
+ 			<div id="local_imgs_player_open_files" onclick="$('#choose_local_imgs_to_play').click()" title="亲，点击打开本地图片播放哦"></div>
+ 		</div>
+
+
+
+<script>
+	var local_img_srcs=[],//图片src集合
+cur_img_index=0,//当前图片src下标
+local_imgs_play_speed=2000,//默认播放定时器调用时间间隔
+img1,img2,//两张图片
+local_imgs_player_parent,//整个播放器最外层div
+who_showing=1,//=1表示img1该淡出，img2该淡入，=0反之
+sys_alpha=1,//整个播放器透明度
+local_imgs_play_clock,//定时器
+local_imgs_play_if_paused=0,//表示播放是否暂停
+fade_speed=1000,//打入淡出的时间间隔
+rotate=0;//图片播放器旋转的度数
+(function()
+{
+	$('#local_imgs_show').one("dblclick",function()
+	{
+		make_it_dcfs($(this),5,2,function(){
+			$('#local_imgs_show_menu').css({
+				opacity:"0"
+			})
+		},function(){
+			$('#local_imgs_show_menu').css({
+				opacity:"1"
+			})
+	
+			$(local_imgs_player_parent).mousemove();
+		});
+		$(this).dblclick();
+	})
+	make_it_resizeable("local_imgs_show",5);
+	make_it_draggable("local_imgs_show");
+	img1=document.getElementById("img_show1");
+	img2=document.getElementById("img_show2");
+	$('.img_show').css("display","none");
+	local_imgs_player_parent=document.getElementById("local_imgs_show");
+	
+	play_local_imgs();
+	make_range("local_imgs_alpha_range","local_imgs_show_menu",1,80,8,20);
+	make_range("local_imgs_speed_range","local_imgs_show_menu",0,80,8,20);
+	make_range("local_imgs_rotate_range","local_imgs_show_menu",0.5,80,8,20);
+	$('#local_imgs_rotate_range').attr("title","滑动调节旋转参数并在鼠标移出幻灯片时应用次参数");  
+	$('#local_imgs_alpha_range').mousemove(function()
+	{
+		local_imgs_player_parent.style.opacity=get_range_value_percent(this);
+	})
+	$(local_imgs_player_parent).mousemove(function()
+	{
+		$('#local_imgs_show_menu').show().css({
+			left:(this.offsetWidth-400)/2+"px"
+		})
+		$(this).css("transform","rotate(0deg)");
+	}).mouseout(function()
+	{
+		$('#local_imgs_show_menu').hide();
+		$(this).css("transform","rotate("+rotate+"deg)");
+	})
+	$('#local_imgs_rotate_range').mousemove(function()
+	{
+		rotate=30-60*get_range_value_percent(this);
+	})
+	$('#local_imgs_alpha_range,#local_imgs_speed_range,#local_imgs_rotate_range').hover(function()
+	{
+		$(this).css("opacity","1");
+	},function()
+	{
+		$(this).css("opacity","0.5");
+	})
+	$('#local_imgs_speed_range').mouseup(function()
+	{
+		
+		setTimeout("adjust_play_speed()",200);
+		
+	})
+	
+	$('#local_imgs_show_menu').css("display","none");
+	
+	document.getElementById("local_imgs_speed_range").title="亲，滑动可以调节幻灯片播放速度哦";
+	document.getElementById("local_imgs_alpha_range").title="亲，滑动可以调节透明度哦";
+	$('#shang_yi_zhang,#xia_yi_zhang,#local_imgs_player_play_or_pause,#local_imgs_player_open_files').hover(function()
+	{
+			$(this).css("opacity","1");
+	},function()
+	{
+		
+			$(this).css("opacity","0.5");
+	})
+	document.getElementById("local_imgs_show").onmousemove=function()
+	{
+		
+		if(if_imgs_player_full_screen==0)
+		{
+			var w1=local_imgs_player_parent.offsetWidth;
+			var the_menu=document.getElementById("local_imgs_show_menu");
+			the_menu.style.display="block";
+			var w2=the_menu.offsetWidth;
+			the_menu.style.left=(w1-w2)/2+"px";
+		}
+		
+		
+	}
+	document.getElementById("local_imgs_show").onmouseout=function()
+	{
+		if(if_imgs_player_full_screen==0)
+		{
+			document.getElementById("local_imgs_show_menu").style.display="none";
+		}
+	}
+	$('#item9').toggle(function()
+	{
+		$(this).html("关闭幻灯");
+		$('#local_imgs_show').show().fadeIn(0).addClass("fadeIn");
+	},function()
+	{
+		$(this).html("打开幻灯");
+		$('#local_imgs_show').removeClass("fadeIn").fadeOut(1500);
+		if(local_imgs_play_if_paused==0&&local_img_srcs.length!=0)
+		{
+			$('#local_imgs_player_play_or_pause').click();
+		}
+	}).click();
+	
+		
+})();
+
+function adjust_play_speed()
+{
+	local_imgs_play_speed=2000+8000*get_range_value_percent("local_imgs_speed_range");
+	fade_speed=get_range_value_percent("local_imgs_speed_range")/0.1*200+1000;
+	local_imgs_play_clock=clearInterval(local_imgs_play_clock);
+	local_imgs_play_clock=setInterval("play_local_imgs()",local_imgs_play_speed);
+}
+function play_local_imgs()
+{
+	if(cur_img_index!=0)
+	{
+		$('.img_show').css("display","block");
+	}
+	if(local_img_srcs.length!=0)
+	{
+		
+		if(who_showing==1)
+		{
+			$(img1).animate({"opacity":"0"},fade_speed);
+			$(img2).animate({"opacity":sys_alpha},fade_speed);
+			who_showing=0;
+		}
+		else if(who_showing==0)
+		{
+			$(img1).animate({"opacity":sys_alpha},fade_speed);
+			$(img2).animate({"opacity":"0"},fade_speed);
+			who_showing=1;
+		}
+		
+		if(cur_img_index>0)
+		{
+			
+			$('#no_imgs_msg').css("opacity","0");
+			$('#local_imgs_player_play').css("opacity","0");
+			$('#local_imgs_player_pause').css("opacity","1");
+		}
+		if(cur_img_index>1)
+		{
+			local_imgs_player_parent.style.background="black";
+			local_imgs_player_parent.style.background="black";
+		}
+		setTimeout(function()
+		{
+			if(who_showing==0)
+			{
+				img1.src=local_img_srcs[cur_img_index];
+			}
+			else if(who_showing==1)
+			{
+				img2.src=local_img_srcs[cur_img_index];
+			}
+			cur_img_index++;
+			if(cur_img_index==local_img_srcs.length)
+				{
+					cur_img_index=0;
+				}
+		},1500);
+	}
+	
+}
+function open_files_by_folder_icon()
+{
+	$('#choose_local_imgs_to_play').click();
+}
+function choose_local_imgs_to_play(files)
+{
+			var num=0;
+			for(var i=0;i<files.length;i++)
+			{
+				if(is_img(files[i].name))
+				{
+					num++;
+				}
+			}
+			if(num>0)
+			{
+				use_msg_re_canvas("亲，您添加了"+num+"张图片哦");
+			}
+			else
+			{
+				use_msg_re_canvas("亲，您添加的都不是图片哦");
+			}
+		for(var i=0;i<files.length;i++)
+		{
+			var file=files[i];
+			var reader=new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload=function(e)
+			{
+				local_img_srcs.push(this.result);
+			}
+		}
+		document.getElementById("no_imgs_msg").innerHTML="<br>亲，正准备，请稍等，马上播放哦!";
+		local_imgs_play_clock=clearInterval(local_imgs_play_clock);
+		local_imgs_play_clock=setInterval("play_local_imgs()",local_imgs_play_speed);
+}
+function change_to_next_img()
+{
+	if(local_img_srcs.length!=0)
+	{
+		cur_img_index++;
+		if(cur_img_index>=local_img_srcs.length)
+			{
+				cur_img_index=0;
+			}
+		img1.src=local_img_srcs[cur_img_index];
+		img2.src=local_img_srcs[cur_img_index];
+	}
+	else
+	{
+		use_msg_re_canvas("亲，图片还木有开始播放哦");
+	}
+}
+function change_to_previous_img()
+{
+	if(local_img_srcs.length!=0)
+	{
+		cur_img_index--;
+		if(cur_img_index<=0)
+			{
+				cur_img_index=local_img_srcs.length-1;
+			}
+		img1.src=local_img_srcs[cur_img_index];
+		img2.src=local_img_srcs[cur_img_index];
+	}
+	else
+	{
+		use_msg_re_canvas("亲，图片还木有开始播放哦");
+	}
+}
+function control_play_and_pause()
+{
+	if(local_img_srcs.length!=0)
+	{
+		
+		if(local_imgs_play_if_paused==0)
+		{
+			$('#local_imgs_player_play').css("opacity","1");
+			$('#local_imgs_player_pause').css("opacity","0");
+			local_imgs_play_if_paused=1;
+			local_imgs_play_clock=clearInterval(local_imgs_play_clock);
+		}
+		else if(local_imgs_play_if_paused==1)
+		{
+			$('#local_imgs_player_play').css("opacity","0");
+			$('#local_imgs_player_pause').css("opacity","1");
+			local_imgs_play_if_paused=0;
+			local_imgs_play_clock=setInterval("play_local_imgs()",local_imgs_play_speed);
+		}
+	}
+	else
+	{
+		use_msg_re_canvas("亲，图片还木有开始播放哦");
+	}
+}
+function dropFile(e)
+{
+	e.stopPropagation();
+	e.preventDefault();
+	choose_local_imgs_to_play(e.dataTransfer.files);
+}
+</script>

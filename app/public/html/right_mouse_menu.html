@@ -1,0 +1,271 @@
+<style>
+	#mouse_menu_outer
+{
+	left:-300px;
+	width:300px;
+	height:300px;
+	border-radius:150px;
+	
+}
+.mouse_menu_item
+{
+	z-index:50;
+	width:66px;
+	height:66px;
+	border-radius:50%;
+	text-align:center;
+	line-height:70px;
+	font-size:14px;
+	cursor:pointer;
+	background-color: 	hsl(340, 100%, 75%);
+	-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+							hsl(340, 70%, 50%) 0 .1em 3px, hsl(340, 80%, 40%) 0 .3em 1px, /* color border */
+							rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+							hsl(340, 70%, 50%) 0 .1em 3px, hsl(340, 80%, 40%) 0 .3em 1px, /* color border */
+							rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+							hsl(340, 70%, 50%) 0 .1em 3px, hsl(340, 80%, 40%) 0 .3em 1px, /* color border */
+							rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	color:lightgray;
+}
+.mouse_menu_item:hover { 
+	background-color: hsl(340, 100%, 83%); 
+}
+</style>
+
+
+
+<div id="item1" class="mouse_menu_item" onclick="$('#the_file').click().val('')">
+				打开歌曲
+			</div>
+			<div id="item2" class="mouse_menu_item">
+				打开歌词
+			</div>
+			<div id="item3" class="mouse_menu_item" onclick="use_msg_re_canvas('亲，从你的计算机中选择一些图片开启动态背景哦');$('#change_body_bg_file').click()">
+				动态背景
+			</div>
+			<div id="item4" class="mouse_menu_item">
+				颜色管理
+			</div>
+			<div id="item5" class="mouse_menu_item" onclick="show_page_bg_changer()">
+				背景皮肤
+			</div>
+			<div id="item6" class="mouse_menu_item" onclick="$('#adjust_play_mode').click()">
+				随机循环
+			</div>
+			<div id="item7" class="mouse_menu_item">
+				前景皮肤
+			</div>
+			<div id="item8" class="mouse_menu_item" onclick="which_skin_mode=='normal'?$('#change_to_mo_fang_mode').click():$('#change_to_normal_mode').click()">
+				魔方模式
+			</div>
+			<div id="item9" class="mouse_menu_item" onclick="open_or_close_local_imgs_player()">
+				打开幻灯
+			</div>
+			<div id="item10" class="mouse_menu_item">
+				打开时钟
+			</div>
+			<div id="item11" class="mouse_menu_item" onclick="random_play_music()">
+				随便一首
+			</div>
+			<div id="item12" class="mouse_menu_item" onclick="mmi_hidden_window()">
+				隐藏窗口
+			</div>
+
+			<div id="item13" class="mouse_menu_item">
+				使用帮助
+			</div>
+			<div id="item14" class="mouse_menu_item" onclick="mmi_kai_fa_inf()">
+				开发说明
+			</div>
+			<div id="item15" class="mouse_menu_item">
+				我要登陆
+			</div>
+			<div id="item16" class="mouse_menu_item">
+				切换列表
+			</div>
+
+<script>
+	$(function()
+{
+	$('#item10').html($('#clock_canvas_outer').css("display")=="none"?"打开时钟":"关闭时钟");
+	var parent=document.getElementById("mouse_menu_outer");
+		var img=document.getElementsByClassName("mouse_menu_item");
+		var img_length=img.length;
+		var r=parent.offsetWidth/2;
+		for(var i=0;i<img_length;i++)
+		{
+			img[i].style.left=r+r*Math.sin(Math.PI/(img_length/2)*(i+1))-(img[i].offsetWidth/2)+"px";
+			img[i].style.top=r+r*Math.cos(Math.PI/(img_length/2)*(i+1))-(img[i].offsetWidth/2)+"px";
+		}
+	document.oncontextmenu=function(e)
+		{
+			$('#item8').html(which_skin_mode=="normal"?"魔方模式":"正常模式");
+			if($('body').attr("if_right_menu_loaded")==undefined)
+			{
+				$('#item2').one("click",function()
+				{
+					if($('body').attr("if_lrc_panel_leaded")==undefined)
+					{
+						$('#lrc_panel').load("app/public/html/lrc.html",function()
+						{
+							use_msg_re_canvas("亲，双击歌词面板可进入全屏歌词哦");
+						});
+						$('body').attr("if_lrc_panel_leaded",1);
+					}
+				})
+				$('#item13').one("click",function()
+				{
+					$('#help_canvas').load("app/public/html/help.html",{num:Math.random()*99999});
+				})
+				
+				$('body,.mouse_menu_item').click(function()
+				{
+					$('#mouse_menu_outer').css("top","-2000px");
+				})
+				$('#item10').one("click",function()
+				{
+					$('#clock_canvas_outer').load("app/public/html/canvas_clock.html",{num:Math.random()*99999});
+				});
+				$('#item8').one("mouseenter",function()
+				{
+					$('#change_to_mo_fang_mode').mouseenter().mouseleave();
+				});
+				$('#item15').click(function()
+				{
+					cur_user_id==null?$('#login_ti_shi').children().first().click():$('#login_ti_shi').find("a").first().click();
+				});
+				$('#item9').one("click",function()
+				{
+					$('#local_imgs_show').load("app/public/html/local_img_player.html",{num:Math.random()*99999});
+				})
+				$('#item4').one("click",function()
+				{
+					$('#color_picker').load("app/public/html/color_manager.html",function()
+					{
+						$('#item4').click();
+					});
+				});
+				$('#item7').click(function()
+				{
+					if(which_skin_mode=="mo_fang")
+					{
+						$('#change_to_normal_mode').click();
+					}
+					$('#change_theme').click();
+				})
+				$('#item16').click(function()
+				{
+					list_mode=list_mode=="DIV"?"LIST":"DIV";
+					$('#'+cur_type).click();
+					update_datas("list_mode",list_mode);
+				})
+				$('.mouse_menu_item').hover(function()
+				{
+					$('.mouse_menu_item').css({
+						zIndex:"50"
+					});
+					$(this).css({
+						width:"90px",
+						height:"90px",
+						zIndex:"100",
+						left:this.offsetLeft-10+"px",
+						top:this.offsetTop-10+"px",
+						lineHeight:"90px",
+						fontSize:"18px"
+					})
+				},function()
+				{
+					$(this).css({
+						zIndex:"50",
+						width:"70px",
+						height:"70px",
+						left:this.offsetLeft+10+"px",
+						top:this.offsetTop+10+"px",
+						lineHeight:"70px",
+						fontSize:"14px"
+					})
+				});
+				$('.mouse_menu_item').hover(function()
+				{
+					$(this).css("color","purple");
+				},function()
+				{
+					$(this).css("color","lightgray");
+				})
+				$('body').attr("if_right_menu_loaded",1);
+			}
+				e.preventDefault();
+				if(play_mode=="shun_xu")
+				{
+					document.getElementById("item6").innerHTML="随机播放";
+				}
+				else if(play_mode=="sui_ji")
+				{
+					document.getElementById("item6").innerHTML="单曲循环";
+				}
+				else if(play_mode=="dan_qu_xun_huan")
+				{
+					document.getElementById("item6").innerHTML="目录循环";
+				}
+				else if(play_mode=="mu_lu_xun_huan")
+				{
+					document.getElementById("item6").innerHTML="顺序播放";
+				}
+				contextmenu(e.pageX,e.pageY);
+		}
+		
+})
+
+//---------------------------------------------
+//响应鼠标右键菜单隐藏窗口的单击事件
+function mmi_hidden_window()
+{
+	var display=$(fd).css("display");
+	if(display=="block")
+	{
+		document.getElementById("item12").innerHTML="显示窗口";
+		$('#fd,#mo_fang_whole_outer')
+			.stop()
+			.animate({"opacity":"0"},500,function()
+			{
+				$('#fd,#mo_fang_whole_outer').css("display","none");
+			});
+	}
+	else
+	{
+		document.getElementById("item12").innerHTML="隐藏窗口";
+		$('#fd,#mo_fang_whole_outer')
+			.stop()
+			.css("display","block")
+			.animate({"opacity":"1"},500);
+	}
+}
+//开发说明
+function mmi_kai_fa_inf()
+{
+	$('#msg_inf').css({
+		lineHeight:"25px",
+		fontSize:"12px"
+	}).html("作者：杜百兴"+"<br>"+"app版本：v2.0"+"<br>"+"兼容性：完美支持Chrome27.0，Firefox21.0，IE10.0,360chrome7.3+,百度2.1,搜狗4.2浏览器及以上版本"+"<br>"+"QQ：1016809572"+"<br>"+"非常欢迎和作者一起交流讨论哦");
+	var msg=document.getElementById("msg");
+	$(msg).animate({
+		left:(screen.width-msg.offsetWidth)/2+"px",
+		top:(screen.height-msg.offsetHeight)/2+50+"px"
+	},300)
+	.animate({
+		left:(screen.width-msg.offsetWidth)/2+"px",
+		top:(screen.height-msg.offsetHeight)/2+"px"
+	},300);
+}
+function contextmenu(x,y)
+{
+	$('#item15').html(cur_user_id==null?"我要登陆":"我要登出");
+	$('#mouse_menu_outer')
+		.css("z-index","5000000")
+		.css("display","block")
+		.css("left",x-150+"px")
+		.css("top",y-150+"px");
+}
+</script>

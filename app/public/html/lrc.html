@@ -1,0 +1,414 @@
+<style>
+	#lrc_panel
+{
+	width:400px;
+	height:625px;
+	border-radius:20px;
+	position: absolute;
+	top:20px;
+	right:20px;
+	background-image:radial-gradient(white, rgba(255,255,255,.9) 2px, transparent 40px),radial-gradient(white, rgba(255,255,255,.8) 1px, transparent 30px),radial-gradient(white, rgba(255,255,255,.6) 2px, transparent 40px),radial-gradient(rgba(255,255,255,.8), rgba(255,255,255,.6) 2px, transparent 30px);
+	background-position:0 0, 40px 60px, 130px 270px, 70px 100px;
+	background-color:black;
+	background-size:550px 550px, 350px 350px, 250px 250px, 150px 150px;
+	font-size:9px;
+	opacity:0.6;
+	z-index: 20000;
+	overflow:hidden;
+}
+#lrc_panel_full_screen_icon,#font_size_jia,#font_size_jian
+{
+	width:25px;
+	height:25px;
+	right:20px;
+	z-index: 100;
+	font-size:30px;
+	color:rgb(51,51,51);
+	cursor:pointer;
+}
+#lrc_panel_full_screen_icon
+{
+	top:20px;
+	background:url('app/public/images/lrc_about.png');
+	background-position:-200px;
+}
+#lrc_menu_bg
+{
+	width:45px;
+	right:10px;
+	top:10px;
+	height:50px;
+	background:gray;
+	border-radius:10px;
+}
+#font_size_jia
+{
+	top:60px;
+	display:none;
+}
+#font_size_jian
+{
+	top:100px;
+	right:18px;
+	display:none;
+}
+#lrc_panel_child_layer
+{
+	padding:20px;
+	
+}
+.lrc_line
+{
+	width:100%;
+	letter-spacing:1px;
+	text-align:center;
+	
+}
+#no_lrc_msg
+{
+	color:chocolate;
+	position:relative;
+	margin:0 auto;
+	width:250px;
+	font-size:24px;
+	line-height: 100px;
+	height:100px;
+	text-align:center;
+	cursor:pointer;
+}
+#no_lrc_msg:hover
+{
+	color:purple;
+}
+#lrc_area
+{
+	width:100%;
+	position:relative;
+	left:-20px;
+	top:505px;
+}
+</style>
+<div id="lrc_menu_bg"></div>
+			<div id="lrc_panel_full_screen_icon" title="亲，点击进入全屏歌词模式哦"></div>
+			<div id="font_size_jia" title="亲，点击增加字体大小哦">
+				+
+			</div>
+			<div id="font_size_jian" title="亲，点击减小字体大小哦">
+				━
+			</div>
+			<div id="no_lrc_msg" onclick="document.getElementById('lrc_input').click();">
+				亲，点击我添加歌词哦!
+			</div>
+			<input type="file" onclick="this.value=''" onchange="load_lrc(this)" style="display:none;" id="lrc_input">
+		
+
+
+<script>
+$(function()
+{
+	make_it_draggable("lrc_panel");
+	$('#item2').click(function()
+	{
+		var $obj=$('#lrc_panel');
+		if($obj.css("display")!="none")
+					{
+						$('#item2').html("打开歌词");
+						$obj.removeClass("fadeIn").fadeOut(1500,function()
+						{
+							$obj.css("display","none");
+						});
+						stop_play_lrc();
+						$(fd).css({
+							opacity:"1"
+						})
+					}
+					else
+					{
+						$('#item2').html("关闭歌词");
+						$obj.fadeIn(0).addClass("fadeIn").css("display","block");
+						if(check_if_lrc_equals_mp3()==1)
+						{
+							 analysis_lrc();
+						}
+					}
+	}).click();
+	$('#lrc_panel').one("dblclick",function()
+	{
+		make_it_dcfs($(this),20,3,function(){
+			$('#lrc_panel_full_screen_icon').css("background-position","-150px").attr("title","亲，点击退出全屏歌词模式哦");
+			lrc_line_height=tmp_lrc_line_height;
+			if(check_if_lrc_equals_mp3()==1)
+			{
+				$('#font_size_jia,#font_size_jian').show();
+				$('#lrc_menu_bg').css("height","130px");
+				stop_play_lrc();
+				analysis_lrc();
+			}
+			$(fd).css({
+				opacity:"0.5"
+			})
+		},function()
+		{
+			$('#lrc_panel_full_screen_icon').css("background-position","-200px").attr("title","亲，点击进入全屏歌词模式哦");
+			$('#font_size_jia,#font_size_jian').hide();
+			$('#lrc_menu_bg').css("height","50px");
+			tmp_lrc_line_height=lrc_line_height;
+			lrc_line_height=24;
+			if(check_if_lrc_equals_mp3()==1)
+			{
+				stop_play_lrc();
+				analysis_lrc();
+			}
+			$(fd).css({
+				opacity:"1"
+			})
+		});
+		$(this).dblclick();
+	})
+	$('#lrc_panel_full_screen_icon').click(function()
+	{
+		$parent=$(this).parent();
+		$parent.dblclick();
+	})
+	$('#font_size_jia').click(function()
+	{
+		if(lrc_line_height<=96)
+		{
+			lrc_line_height=16+parseInt(lrc_line_height);
+			stop_play_lrc();
+			analysis_lrc(lrc_value);
+		}
+		else
+		{
+			use_msg_re_canvas("亲，已经加到最大了，不能再加了哦");
+		}
+		update_datas("lrc_line_height",lrc_line_height);
+	})
+	$('#font_size_jian').click(function()
+	{
+		if(lrc_line_height>=32)
+		{
+			lrc_line_height=parseInt(lrc_line_height)-16;
+			stop_play_lrc();
+			analysis_lrc(lrc_value);
+		}
+		else
+		{
+			use_msg_re_canvas("亲，已经减到最小了，不能再减了哦");
+		}
+		update_datas("lrc_line_height",lrc_line_height);
+	})
+});
+function load_lrc(obj)
+{
+	var file=obj.files[0];
+	lrc_file_name=file.name;
+	var reader=new FileReader();
+	reader.readAsText(file,"gb2312");
+	reader.onload=function()
+	{
+		var file_name_length=file.name.length;
+		var lrc_format;
+		if(file.name.substring(file_name_length-3)=="lrc")
+		{
+			lrc_format="lrc";
+		}
+		else if(file.name.substring(file_name_length-3)=="trc")
+		{
+			lrc_format="trc";
+		}
+		if(file.name.substring(file_name_length-3)=="lrc"||file.name.substring(file_name_length-3)=="trc")
+		{
+			music_name=music_name.replace(/ /gi,"");
+			lrc_file_name=lrc_file_name.replace(/ /gi,"");
+			music_name=music_name.substring(0,music_name.length-4);
+			lrc_file_name=lrc_file_name.substring(0,lrc_file_name.length-4);
+			var music_name_arr=music_name.split("-");
+			var lrc_name_arr=lrc_file_name.split("-");
+			if(music_name_arr[0]==lrc_name_arr[0]&&music_name_arr[1]==lrc_name_arr[1])
+			{
+				lrc_value=this.result;
+				analysis_lrc();
+				
+			}
+			else
+			{
+				use_msg_re_canvas("亲，请选择和当前歌曲匹配的歌词哦");
+			}
+		}
+		else
+		{
+			use_msg_re_canvas("亲，当前仅支持lrc,trc歌词哦");
+		}
+		
+	}
+}
+
+function analysis_lrc()
+{
+	var value=lrc_value.split("\n");
+	for(var i=0;i<value.length;i++)
+	{
+		var line_whole_value=value[i];
+		var pos_of_spliter_of_time_and_lrc=line_whole_value.lastIndexOf("]");
+		var line_lrc_value=line_whole_value.substring(pos_of_spliter_of_time_and_lrc+1);
+		var time_value_str=line_whole_value.substring(0,pos_of_spliter_of_time_and_lrc+1);
+		
+		var time_values=time_value_str.split("[");
+		for(var j=0;j<time_values.length;j++)
+		{
+			var time_value=time_values[j];
+			if(
+				(time_value[8]=="]"&&isNaN(time_value[0])==false)
+				||(time_value[9]=="]"&&isNaN(time_value[0])==false)
+			)
+			{
+				var time;
+				var time_one="";
+				var time_two="";
+				for(var q=0;q<2;q++)
+				{
+					time_one+=time_value[q];
+				}
+				for(var m=3;m<5;m++)
+				{
+					time_two+=time_value[m];
+				}
+				time=parseInt(time_one)*60+parseInt(time_two);
+				if(line_lrc_value!="")
+				{
+					lrc_shi_jian_chuo.push(time);
+					line_lrc_value=line_lrc_value.replace(/\[\d+\]/gi,"");
+					line_lrc_value=line_lrc_value.replace(/<\d+>/gi,"");
+					lrc_of_every_line.push(line_lrc_value);
+				}
+				
+
+			}
+		}
+		
+	}
+	sort(lrc_shi_jian_chuo);
+	var lrc_area=document.createElement("div");
+		lrc_area.id="lrc_area";
+		document.getElementById("lrc_panel").appendChild(lrc_area);
+		lrc_area.style.height=lrc_line_height*lrc_of_every_line.length+"px";
+		for(var i=0;i<lrc_of_every_line.length;i++)
+		{
+			var o=document.createElement("div");
+			o.className="lrc_line";
+			$(o).css({
+				top:lrc_line_height*i+"px",
+				color:general_color,
+				lineHeight:lrc_line_height+"px",
+				height:lrc_line_height+"px",
+				fontSize:lrc_line_height/2+"px"
+			})
+			o.id="lrc_line"+(i+1);
+			o.innerHTML=lrc_of_every_line[i];
+			document.getElementById("lrc_area").appendChild(o);
+		}
+		$('#no_lrc_msg').css("display","none");
+		cur_lrc_line_index_check_clock=setInterval("check_cur_lrc_line_index()",10);
+	
+}
+function check_cur_lrc_line_index()
+{
+	for(var i=0;i<lrc_shi_jian_chuo.length;i++)
+		{
+			if(lrc_shi_jian_chuo[i]>the_audio.currentTime)
+			{
+				cur_lrc_line_index=i;
+				
+				break;
+			}
+		}
+	if(check_if_lrc_equals_mp3()==1)
+	{
+		
+		if(cur_lrc_line_index!=0)
+		{
+			document.getElementById("lrc_area").style.top=305-lrc_line_height*(cur_lrc_line_index-1)+"px";
+			$('.lrc_line').not($('#lrc_line'+cur_lrc_line_index)).css({
+				color:temp_page_color
+			})
+			$('#lrc_line'+cur_lrc_line_index).css({
+					color:"chocolate"
+				})
+
+
+		}
+		else if(cur_lrc_line_index==0)
+		{
+			document.getElementById("lrc_area").style.top=605-300*the_audio.currentTimeTime/lrc_shi_jian_chuo[0]+"px";
+		}
+	}
+	else
+	{
+		stop_play_lrc();
+	}
+}
+function check_if_lrc_equals_mp3()
+{
+	if(music_name==null)
+	{
+		return 0;
+	}
+	else
+	{
+		var lrc_file_name_prefix=lrc_file_name.substring(0,lrc_file_name.length-4);
+		var music_name_prefix=music_name.substring(0,music_name.length-4);
+		if(lrc_file_name_prefix==music_name_prefix)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}	
+	}
+}
+function stop_play_lrc()
+{
+	$('#lrc_area').empty();
+		cur_lrc_line_index=0;
+		setTimeout(function()
+		{
+			if(check_if_lrc_equals_mp3()==0)
+			{
+				$('#no_lrc_msg').css("display","block");
+			}
+		},800);
+		document.getElementById("lrc_area").style.top="505px";
+		lrc_shi_jian_chuo.length=0;
+		lrc_of_every_line.length=0;
+		cur_lrc_line_index_check_clock=clearInterval(cur_lrc_line_index_check_clock);
+}
+function sort(a)
+{
+	var n=a.length;
+	var i,j,temp,temp1,min;
+	for(i=0;i<n-1;i++)
+		{
+			min=i;
+			for(j=i+1;j<n;j++)
+			{
+				if(a[min]>a[j])
+			  		{
+						min=j;
+					}
+			}
+			if(min!=i)
+			{
+				temp=a[i];
+				a[i]=a[min];
+				a[min]=temp;
+				
+				temp1=lrc_of_every_line[i];
+				lrc_of_every_line[i]=lrc_of_every_line[min];
+				lrc_of_every_line[min]=temp1;
+			}
+		}
+}
+
+</script>

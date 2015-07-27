@@ -1,0 +1,227 @@
+
+<style>
+	#clock_canvas_outer
+{
+	width:300px;
+	height:300px;
+	border-radius:300px;
+	background:transparent;
+	
+	right:20px;
+	top:50px;
+	cursor:move;
+	z-index: 1400000;
+}
+#center
+{
+	border-radius:50%;
+	box-shadow:0 0 4px white;
+	width:8px;
+	height:8px;
+	background:gray;
+	left:147px;
+	top:147px;
+}
+#second_pointer_top
+{
+	height:90px;
+	width:2px;
+	background:purple;
+}
+#second_pointer_bottom
+{
+	height:70px;
+	width:2px;
+	background:transparent;
+	
+}
+#second_pointer
+{
+	height:160px;
+	width:2px;
+	background:transparent;
+	position: absolute;
+	top:70px;
+	left:150px;
+}
+#minute_pointer_top
+{
+	height:60px;
+	width:2px;
+	background:orange;
+}
+#minute_pointer_bottom
+{
+	height:60px;
+	width:2px;
+	background:transparent;
+	
+}
+#minute_pointer
+{
+	height:120px;
+	width:2px;
+	background:transparent;
+	position: absolute;
+	top:90px;
+	left:150px;
+}
+#hour_pointer_top
+{
+	height:40px;
+	width:2px;
+	background:yellow;
+}
+#hour_pointer_bottom
+{
+	height:40px;
+	width:2px;
+	background:transparent;
+	
+}
+#hour_pointer
+{
+	height:80px;
+	width:2px;
+	background:transparent;
+	position: absolute;
+	top:110px;
+	left:150px;
+}
+</style>
+
+
+<canvas id="clock_canvas" width="300" height="300">
+				
+			</canvas> 
+		
+		<div id="second_pointer">
+			<div id="second_pointer_top">
+				
+			</div>
+			<div id="second_pointer_bottom">
+				
+			</div>
+		</div>
+		<div id="minute_pointer">
+			<div id="minute_pointer_top">
+				
+				
+				
+			</div>
+			<div id="minute_pointer_bottom">
+				
+			</div>
+		</div>
+		<div id="hour_pointer">
+			<div id="hour_pointer_top">
+				
+			</div>
+			<div id="hour_pointer_bottom">
+				
+			</div>
+		</div>
+		<div id="center">
+			
+			
+		</div>
+
+
+<script>
+	var second_pointer,
+	minute_pointer,
+	run_clock_clock,//时钟定时器
+	hour_pointer;
+	(function()
+	{
+		make_it_draggable("clock_canvas_outer");
+		second_pointer=document.getElementById("second_pointer");
+		minute_pointer=document.getElementById("minute_pointer");
+		hour_pointer=document.getElementById("hour_pointer");
+		clock_canvas = document.getElementById("clock_canvas");
+		var string="| | | | | | | | | | | | ";
+		var clock_radius=100;//该值越大，时钟的半径就越大
+		var clock_circle_x=clock_canvas.width/2;
+		var clock_circle_y=clock_canvas.height/2;
+	    var clock_context=clock_canvas.getContext('2d'); 
+	    clock_context.font="30px 微软雅黑";
+	    clock_context.textAlign="center";
+	    clock_context.textBaseLine="middle";
+	    var clock_gradient=clock_context.createRadialGradient(clock_canvas.width/2,clock_canvas.height,0,clock_canvas.width/2,0,768);
+	    clock_gradient.addColorStop(0,'blue'); 
+	    clock_gradient.addColorStop(0.25,'white');
+	    clock_gradient.addColorStop(0.5,'purple');
+	    clock_gradient.addColorStop(0.75,'red');
+	    clock_gradient.addColorStop(1,'yellow');
+	    clock_context.fillStyle=clock_gradient;
+	    var startAngle=Math.PI*2;
+	    var endAngle=Math.PI/(string.length/2);
+	    var angleDecrement=(startAngle-endAngle)/(string.length-1);//角度衰减值
+		var angle=startAngle;//初始角度值
+		var index=0;//下标索引
+		var character;//下标对应的char
+		
+		while(index<string.length)
+		{
+			
+			character=string.charAt(index);
+			clock_context.save()
+			//我发现这一句不加也行
+			//context.beginPath();
+			//旋转坐标系
+			clock_context.translate(clock_circle_x+Math.cos(angle)*clock_radius,clock_circle_y-Math.sin(angle)*clock_radius);
+			//这一句规定文字是否旋转
+			clock_context.rotate(Math.PI/2-angle);
+			//按照这个方法，每一个char的填充操作必须在坐标系旋转之后
+			clock_context.fillText(character,0,0);
+			
+			
+			angle-=angleDecrement;
+			index++;
+			clock_context.restore();
+		}
+		run_clock();
+	   run_clock_clock=setInterval("run_clock()",1000);
+	})();
+	function run_clock()
+	{
+		var now_date=new Date();
+		var now_second=now_date.getSeconds();
+		var duo_shao_du_miao=6*now_second;
+		$(second_pointer).css("transform","rotate("+duo_shao_du_miao+"deg)");
+		
+		var now_minute=now_date.getMinutes();
+		var duo_shao_du_fen=now_minute*6;
+		$(minute_pointer).css("transform","rotate("+duo_shao_du_fen+"deg)");
+		
+		var now_hour=now_date.getHours();
+		hour=now_hour>=12?now_hour-12:now_hour;
+		var duo_shao_du_hour=hour*30+now_date.getMinutes()/2;
+		$(hour_pointer).css("transform","rotate("+duo_shao_du_hour+"deg)");
+	}
+	$('#item10').click(function()
+	{
+		var obj=document.getElementById("clock_canvas_outer");
+		if(obj.style.display=="none")
+		{
+			
+			document.getElementById("item10").innerHTML="关闭时钟";
+			run_clock_clock=clearInterval(run_clock_clock);
+			run_clock();
+			run_clock_clock=setInterval("run_clock()",1000);
+			$(obj).fadeIn(0).addClass("fadeIn").css("display","block");
+			update_datas("if_clock_visible",1);
+		}
+		else if(obj.style.display=="block")
+		{
+			document.getElementById("item10").innerHTML="打开时钟";
+			run_clock_clock=clearInterval(run_clock_clock);
+			$(obj).removeClass("fadeIn").fadeOut(1500);
+			setTimeout(function()
+			{
+				$(obj).css("display","none")
+			},1500)
+			update_datas("if_clock_visible",0);
+		}
+	}).click();
+</script>

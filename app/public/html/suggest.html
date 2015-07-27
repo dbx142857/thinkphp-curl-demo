@@ -1,0 +1,236 @@
+<style>
+	#suggest
+	{
+		display:none;
+	width:704px;
+	height:500px;
+	 background: #f3f6fa;
+	  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	border-radius:10px;
+	z-index: 20005;
+	}
+	#suggest_zhe_zhao
+	{
+		position: fixed;
+	    z-index:100;
+	    top: 0px;
+	    left: 0px;
+	    height:100%;
+	    width:100%;
+	    background: #000;
+	    z-index: 10000;
+	    opacity:0.8;
+	}
+	#suggest *
+	{
+		position:relative;
+		color:black;
+	}
+	.ti_jiao
+	{
+		width:100px;
+		height:60px;
+		text-align:center;
+		line-height:60px;
+		top:40px;
+		text-decoration:none;
+		cursor:pointer;
+		border-radius:8px;
+		box-shadow:0 0 1px white inset;
+		border:1px solid gray !important;
+		color:black;
+		font-weight:bolder;
+		font-size:24px;
+		color:#345903 !important;
+		border:1px solid #96a37b !important;	
+		background-color: #79be1e;
+		background-image:-moz-radial-gradient(center bottom, circle, rgba(162,211,30,1) 0,rgba(162,211,30,0) 100px),-moz-linear-gradient(#82cc27, #74b317);
+		background-image:-webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(162,211,30,1)), to(rgba(162,211,30,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#82cc27), to(#74b317));
+	}
+	.ti_jiao:active
+	{
+		top:43px;
+	}
+	.ti_jiao:hover
+	{
+		background-color:#89d228;
+		background-image:-moz-radial-gradient(center bottom, circle, rgba(183,229,45,1) 0,rgba(183,229,45,0) 100px),-moz-linear-gradient(#90de31, #7fc01e);
+		background-image:-webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(183,229,45,1)), to(rgba(183,229,45,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#90de31), to(#7fc01e));
+	}
+	#yi_jian
+	{
+		top:20px;
+	}
+	textarea
+	{
+		width:80%;
+		top:30px;
+		height:200px;
+	}
+#suggest input[type="text"]
+{
+	font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  color: #7988a3;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
+  background-color: #fff;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#edf3f9), to(#fff));
+  background-image: -webkit-linear-gradient(top, #edf3f9, #fff);
+  background-image: -moz-linear-gradient(top, #edf3f9, #fff);
+  background-image: -ms-linear-gradient(top, #edf3f9, #fff);
+  background-image: -o-linear-gradient(top, #edf3f9, #fff);
+  background-image: linear-gradient(top, #edf3f9, #fff);
+  border: 1px solid;
+  border-color: #abbce8 #c3cae0 #b9c8ef;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.4);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.4);
+  -webkit-transition: all 0.25s linear;
+  -moz-transition: all 0.25s linear;
+  transition: all 0.25s linear;
+}
+#suggest input[type="text"]:focus
+{
+	outline: none;
+  color: #525864;
+  border-color: #84c0ee;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;
+}
+#suggest table
+{
+	margin-top:40px;
+}
+#suggest table td
+{
+	margin-right:5px;
+	height:40px;
+	line-height:40px;
+}
+#suggest #close
+{
+	padding:5px;
+	z-index:1000000;
+	position:absolute;
+	width:20px;
+	height:20px;
+	border:solid lightgray 2px;
+	text-align:center;
+	line-height:20px;
+	background:rgb(111,111,111);
+	border-radius:50%;
+	font-size:16px;
+	right:-10px;
+	top:-10px;
+	cursor:pointer;
+}
+#suggest #close:hover
+{
+	background:purple;
+}
+</style>
+
+
+<center><div id="yi_jian" >亲，请留下您郑重而宝贵的意见哦：</div></center>
+<center><textarea name="content" id="suggest_content"></textarea></center>
+<center><table>
+	<tr>
+		<td align="right">邮箱:</td>
+		<td align="left"><input type="text" maxlength="50" name="email" /></td>
+	</tr>
+	<tr>
+		<td align="right">手机号码:</td>
+		<td align="left"><input type="text" maxlength="50" name="tel" /></td>
+	</tr>
+</table></center>
+<center><span>联系电话：18911422464&nbsp;&nbsp;&nbsp;&nbsp;联系邮箱：1016809572@qq.com</span></center>
+<center><input type="button" class="ti_jiao" value="提交"></center>
+<div id="close" onmouseenter="this.style.background='purple'" onmouseleave="this.style.background='rgb(111,111,111)'">X</div>
+<script>
+	$(function()
+	{
+		$('#login_ti_shi').children().last().click(function()
+		{
+			console.log("test1");
+			if(!document.getElementById("suggest_zhe_zhao"))
+			{
+				$("<div>")
+				.appendTo($('body'))
+				.attr({
+					id:"suggest_zhe_zhao"
+				});
+			}
+			var $parent=$('#suggest');
+			$parent.css({
+				left:($parent.parent().outerWidth()-$parent.outerWidth())/2+"px",
+				top:($parent.parent().outerHeight()-$parent.outerHeight())/2+"px"
+			}).removeClass("slideDown")
+				.show()
+				.addClass("slideExpandUp");
+		}).click();
+		
+		
+		
+		$('#suggest #close').click(function()
+		{
+			console.log("test2");
+			var $parent=$(this).parent();
+			$('#suggest_zhe_zhao').remove();
+			$parent.css({
+				top:screen.height+"px"
+			}).removeClass("slideExpandUp")
+			.addClass("slideDown");
+			setTimeout(function()
+			{
+				$parent.hide();
+			},1000);
+		})
+	})
+	$('textarea').focus(function()
+	{
+		$('body').attr("if_textarea_focus",1);
+	}).blur(function()
+	{
+		$('body').attr("if_textarea_focus",0);
+	})
+	$('.ti_jiao').click(function()
+	{
+		if($("#suggest_content").val().length>1000){
+			use_msg_re_canvas("提交内容不能超过1000字");
+			return false;
+		}
+		var data={};
+		var $children=$('#suggest').children();
+		$children.find("input").add($children.find("textarea")).each(function()
+		{
+			if($(this).attr("name"))
+			{
+				data[$(this).attr("name")]=$(this).val();
+			}
+		})
+		$.ajax({
+			type:"post",
+			url:"Index.php?m=Ajax&a=add_suggest",
+			data:data,
+			success:function(msg)
+			{
+				if(msg==1)
+				{
+					use_msg_re_canvas("恭喜亲提交成功");
+					$('#suggest #close').click();
+				}
+				else
+				{
+					use_msg_re_canvas("提交失败，请稍后再试");
+				}
+			}
+		})
+	})
+
+</script>

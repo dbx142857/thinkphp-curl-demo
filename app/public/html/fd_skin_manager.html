@@ -1,0 +1,113 @@
+<style>
+	#theme_changer
+	{
+		width:0px;
+		height:600px;
+		left:300px;
+		top:0;
+		border-radius:15px;
+		overflow:hidden;
+	}
+	#heng
+{
+	width:120px;
+	height:20px;
+	left:40px;
+	top:50px;
+}
+#shu
+{
+	width:20px;
+	height:100px;
+	left:90px;
+	top:10px;
+}
+#heng,#shu
+{
+	background:silver;
+	border-radius:10px;
+	position: absolute;
+	opacity:0.6;
+}
+.theme_div
+{
+	width:200px;
+	text-align:center;
+	font-size:24px;
+	line-height:200px;
+	margin-top:50px;
+	margin-left:40px;
+	height:120px;
+	border-radius:15px;
+	border:solid pink 2px;
+	float:left;
+	cursor:pointer;
+	position: relative;
+}
+</style>
+
+
+<script>
+	$('#change_bg_file').change(function()
+	{
+		var obj=document.getElementById("change_bg_file");
+		var file=obj.files[0];
+		var reader=new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload=function(e)
+		{
+			$('#fd_bg_img')
+				.attr("src",this.result);
+				if(cur_user_id!=null)
+				{
+					$('#sys_pic').val("");
+					$('#update_fd_bg_form').submit();
+				}
+			
+		}
+	})
+	var theme_changer=document.getElementById("theme_changer");
+		for(var i=1;i<=8;i++)
+		{
+			var theme_names=["棕色木纹","神秘星际","炫酷金属","粉红之夜","黑色木纹","茫茫野草","仰望苍穹","零度诱惑"];
+			var o=document.createElement("div");
+			o.className="theme_div";
+			o.innerHTML=theme_names[i-1];
+			o.style.background="url(app/public/images/bg/suo_lve/"+theme_names[i-1]+".jpg)";
+			theme_changer.appendChild(o);
+		}
+		var o=document.createElement("div");
+		o.className="theme_div";
+		o.id="theme_div8";
+		o.title="点击自定义播放器背景（图片大小不能超过1mb）";
+		document.getElementById("theme_changer").appendChild(o);
+		
+		var heng=document.createElement("div");
+		heng.id="heng";
+		o.appendChild(heng);
+		var shu=document.createElement("div");
+		shu.id="shu";
+		o.appendChild(shu);
+		$('.theme_div').bind("mouseenter",function(){
+			$(this).css("border-color","purple");
+		})
+		.bind("mouseleave",function(){
+			$(this).css("border-color",temp_page_color);
+		})
+		$('.theme_div').not($('#theme_div8')).click(function()
+		{
+			var theme_names=["棕色木纹","神秘星际","炫酷金属","粉红之夜","黑色木纹","茫茫野草","仰望苍穹","零度诱惑"];
+			var $group=$('.theme_div');
+			var index=$group.index($(this));
+			$('#fd_bg_img').attr("src","app/public/images/bg/"+theme_names[index]+".jpg");
+			if(cur_user_id!=null)
+				{
+					$('#sys_pic').val(index);
+					$('#update_fd_bg_form').submit();
+				}
+		})
+		o.onclick=function()
+		{
+			$('#change_bg_file').click();
+		}
+</script>

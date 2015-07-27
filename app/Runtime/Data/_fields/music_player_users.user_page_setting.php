@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'user_id', 1 => 'page_color', 2 => 'favorite_song', 3 => 'if_clock_visible', 4 => 'bg', 5 => 'bg_opacity', 6 => 'fd_bg_src', 7 => 'sys_volume', 8 => 'lrc_if_full_screen', 9 => 'lrc_line_height', '_autoinc' => false, '_pk' => 'user_id', ); ?>

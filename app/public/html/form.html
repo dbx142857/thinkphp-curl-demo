@@ -1,0 +1,1070 @@
+<style>
+#register_and_log_in #close:hover
+{
+	background:purple;
+}
+	#register_and_log_in
+{
+	display:none;
+	width:704px;
+	height:500px;
+	 background: #f3f6fa;
+	  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	border-radius:10px;
+	z-index: 20005;
+}
+#log_in_zhe_zhao
+{
+	position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    z-index: 10000;
+    opacity:0.8;
+}
+	#auto_login_whole
+{
+	text-align:right;
+	margin-top:-40px;
+}
+#auto_login
+{
+	width:15px;
+	height:15px;
+	border:solid gray 3px;
+	margin-left:230px;
+	line-height:15px;
+	text-align:center;
+	top:20px;
+	border-radius:50%;
+	box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+	cursor:pointer;
+}
+#auto_login_msg
+{
+	cursor:pointer;
+}
+#register_and_log_in *
+{
+	color:black;
+}
+#yan_zheng_ma_img
+{
+	width:100px;
+	height:100%;
+	display:block;
+	margin-left:90px;
+	margin-top:-30px;
+}
+
+input[type="text"],input[type="password"]
+{
+	font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  color: #7988a3;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
+  background-color: #fff;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#edf3f9), to(#fff));
+  background-image: -webkit-linear-gradient(top, #edf3f9, #fff);
+  background-image: -moz-linear-gradient(top, #edf3f9, #fff);
+  background-image: -ms-linear-gradient(top, #edf3f9, #fff);
+  background-image: -o-linear-gradient(top, #edf3f9, #fff);
+  background-image: linear-gradient(top, #edf3f9, #fff);
+  border: 1px solid;
+  border-color: #abbce8 #c3cae0 #b9c8ef;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.4);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.4);
+  -webkit-transition: all 0.25s linear;
+  -moz-transition: all 0.25s linear;
+  transition: all 0.25s linear;
+}
+input[type="text"]:focus,input[type="password"]:focus
+{
+	outline: none;
+  color: #525864;
+  border-color: #84c0ee;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;
+}
+
+#register_and_log_in *
+{
+	position: relative;
+}
+#spliter
+{
+	width:0;
+	height:360px;
+	position: absolute;
+	border-left:dashed purple 4px;
+}
+#register_div,#log_in_div
+{
+	
+	width:330px;
+	height:380px;
+	padding:10px;
+}
+#register_div
+{
+	left:0;
+	top:0;
+}
+#log_in_div
+{
+	top:-400px;
+	left:354px;
+}
+#register_and_log_in h2
+{
+	margin-bottom:10px;
+	color:gray;
+	text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+.the_account,.the_pwd,.the_re_pwd,.the_email,#yan_zheng_ma
+{
+	height:30px;
+	line-height:30px;
+	font-size:24px; 
+	margin-bottom:10px;
+}
+#yan_zheng_ma
+{
+	cursor:pointer;
+}
+.forget_pwd,.change_yan_zheng_ma
+{
+	text-decoration:none;
+	text-align:right;
+	font-size:15px;
+	left:250px;
+	top:-90px;
+	cursor:pointer;
+}
+.forget_pwd
+{
+	top:-80px;
+}
+.change_yan_zheng_ma
+{
+	left:220px;
+}
+
+input
+{
+	border-radius:5px;
+	width:266px;
+	height:30px;
+	line-height:100%;
+	margin-bottom:10px;
+}
+#yan_zheng_ma,#log_in_yan_zheng_ma_input_text
+{
+	top:-20px;
+}
+.button{
+	width:150px;
+	height:60px;
+	z-index:100;
+	text-decoration:none;
+	cursor:pointer;
+	padding:10px 20px;
+	display:inline-block;
+	border-radius:8px;
+	box-shadow:0 0 1px white inset;
+	border:1px solid gray !important;
+	color:black;
+	font-weight:bolder;
+	font-size:24px;
+	margin-top:40px;
+}
+.button:active{
+	bottom:-3px;
+}
+
+.green.button{
+	color:#345903 !important;
+	border:1px solid #96a37b !important;	
+	background-color: #79be1e;
+	background-image:-moz-radial-gradient(center bottom, circle, rgba(162,211,30,1) 0,rgba(162,211,30,0) 100px),-moz-linear-gradient(#82cc27, #74b317);
+	background-image:-webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(162,211,30,1)), to(rgba(162,211,30,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#82cc27), to(#74b317));
+}
+
+.green.button:hover{
+	background-color:#89d228;
+	
+	background-image:-moz-radial-gradient(center bottom, circle, rgba(183,229,45,1) 0,rgba(183,229,45,0) 100px),-moz-linear-gradient(#90de31, #7fc01e);
+	background-image:-webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(183,229,45,1)), to(rgba(183,229,45,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#90de31), to(#7fc01e));
+}
+.orange.button{
+	color:#693e0a !important;
+	border:1px solid #bea280 !important;	
+	background-color: #e38d27;
+	
+	background-image:-moz-radial-gradient(center bottom, circle, rgba(232,189,45,1) 0,rgba(232,189,45,0) 100px),-moz-linear-gradient(#f1982f, #d4821f);
+	background-image:-webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(232,189,45,1)), to(rgba(232,189,45,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1982f), to(#d4821f));
+}
+#log_in_form_button
+{
+	top:40px;
+}
+#log_in_form_button:active
+{
+	top:43px;
+}
+.orange.button:hover{
+	background-color:#ec9732;
+	
+	background-image:-moz-radial-gradient(center bottom, circle, rgba(241,192,52,1) 0,rgba(241,192,52,0) 100px),-moz-linear-gradient(#f9a746, #e18f2b);
+	background-image:-webkit-gradient(radial, 50% 100%, 0, 50% 100%, 100, from(rgba(241,192,52,1)), to(rgba(241,192,52,0))),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#f9a746), to(#e18f2b));
+}
+#register_and_log_in #close
+{
+	position:absolute;
+	padding:5px;
+	z-index:1000000;
+	width:20px;
+	height:20px;
+	border:solid lightgray 2px;
+	text-align:center;
+	line-height:20px;
+	background:rgb(111,111,111);
+	border-radius:50%;
+	font-size:16px;
+	right:-10px;
+	top:-10px;
+	cursor:pointer;
+}
+</style>
+
+<div id="close" onmouseenter="this.style.background='purple'" onmouseleave="this.style.background='rgb(111,111,111)'">X</div>
+        <div id="spliter"></div>
+        <form action="Index.php?m=Ajax&a=register" method="post" id="register_form">
+            <div id="register_div">
+                
+                <center><h2>没有账号？赶快注册吧！</h2></center>
+                <div class="the_account">账号</div>
+                <center><input type="text" name="account"/></center>
+                <div class="the_pwd">密码</div>
+                <center><input type="password" class="the_pwd_input_text" id="register_pwd_input_text" name="register_pwd_input_text" /></center>
+                <div class="the_re_pwd">重复密码</div>
+                <center><input type="password" class="the_re_pwd_input_text" id="register_re_pwd_input_text" name="register_re_pwd_input_text" /></center>
+                <div class="the_email">邮箱</div>
+                <center><input type="text" class="the_email_text" id="register_email_input_text" name="register_email_input_text" /></center>
+                
+                <center><input type="submit" class="button green" id="register_form_button" value="注册"/></center>
+    
+            </div>
+        </form>
+        <form action="Index.php?m=Ajax&a=log_in" method="post" id="log_in_form">
+        <div id="log_in_div">
+             <center><h2>已有账号？来这儿登陆吧！</h2></center>
+             <div class="the_account">账号</div>
+              <center><input type="text" class="the_account_input_text" id="log_in_account_input_text" name="log_in_account_input_text" /></center>
+             <div class="the_pwd">密码</div>
+             <center><input type="password" class="the_pwd_input_text" id="log_in_pwd_input_text" name="log_in_pwd_input_text" /></center>
+             <a class="forget_pwd" href="javascript:;">忘记密码?</a>
+             <div id="yan_zheng_ma" title="点击更换验证码">
+             	验证码
+             	<img src="" id="yan_zheng_ma_img" />
+             </div>
+             <center><input type="text" name="log_in_yan_zheng_ma_input_text" /></center>
+             <a class="change_yan_zheng_ma">看不清？换一张</a>
+             <div id="auto_login_whole">
+             	<div id="auto_login">√</div>
+             	<span id="auto_login_msg">自动登陆</span>
+             </div>
+             <input type="hidden" id="if_auto_login" name="if_auto_login" value="1" />
+             <center><input type="submit" class="button orange" id="log_in_form_button" value="登陆"/></center>
+        </div>
+         </form>
+         
+
+
+
+<script>
+	(function()
+	{
+		jQuery.extend({
+	/*
+	 * 调用参考:
+	 * 	$.radio_must_be_checked({
+		radios_name:"price",
+		err_msg:"亲，请选择一个价格哦"
+	})
+	 */
+	yzm_system:function(options)
+	{
+		var defaults={
+			$input:null,
+			$img:null,
+			$click_to_change_yzm_obj:null,
+			yz_err_fun:null
+		}
+		var options=$.extend(defaults,options);
+		options.$img.click(function()
+		{
+			$(this).attr({
+				src:"Index.php?m=Plugin&a=show_yzm&r="+Math.random()*9999
+			})
+		}).click();
+		if(options.$click_to_change_yzm_obj!=null)
+		{
+			options.$click_to_change_yzm_obj.click(function()
+			{
+				options.$img.attr({
+					src:"Index.php?m=Plugin&a=show_yzm&r="+Math.random()*9999
+				})
+			})
+		}
+		options.$input.blur(function()
+		{
+			$.ajax({
+				type:"post",
+				async:false,
+				url:"Index.php?m=Plugin&a=check_yzm",
+				data:{yzm:$(this).val()},
+				success:function(msg)
+				{
+					if(msg==0)
+					{
+						if(options.yz_err_fun==null)
+						{
+							options.yz_err_fun=function()
+							{
+								options.$input.show_err_msg({
+									err_msg:"亲，验证码不正确哦"
+								})
+							}
+						}
+						options.yz_err_fun();
+					}
+				}
+			})
+		})
+	},
+//------------------------------------------------
+	radio_must_be_checked:function(options)
+	{
+		var defaults={
+			radios_name:null,
+			err_msg:"亲，请做出选择哦"
+		}
+		var options=$.extend(defaults,options);
+		var $selects=$(':radio[name='+options.radios_name+']');
+		var $last_select=$selects.last();
+		$last_select.blur(function()
+		{
+			var $thi=$(this);
+			var if_radioed=0;
+			$selects.each(function()
+			{
+				$(this).click(function()
+				{
+					$thi.parent().remove_err_msg();
+				})
+				if($(this).attr("checked")=="checked")
+				{
+					if_radioed=1;
+				}
+			})
+			if(if_radioed==0)
+			{
+				$thi.parent().show_err_msg({
+					err_msg:options.err_msg
+				})
+			}
+		})
+	}
+})
+//作用：表单blur时显示错误信息
+jQuery.fn.extend({
+	form_msg:function(options){
+		var thi=$(this).get(0);
+		var defaults={
+			blur_err_msg:"亲，输入有误哦",
+			reg:/^.+$/,
+			not_null_check:true,
+			null_msg:"亲，必须填写此项哦",
+			confirm_input_reference_obj:null,
+			show_right_msg:true,
+			msg_left_add:0,
+			pwd_strength_check:false,
+			width_decrease:0,
+			err_msg_pos:null,
+			pwd_strength_check_config:{
+				reg1:/\d/,
+				reg2:/[\d]+[a-z]+/i,
+				reg3:/[\w]+[@#$%^&]+/i
+			}
+		}
+		
+        var options = $.extend(defaults, options);
+        thi.is_right=0;
+        var err_msg=options.blur_err_msg;
+        var $pwd_strength_check_div;
+        if(options.pwd_strength_check==true)
+        {
+        	$pwd_strength_check_div=$("<div>")
+        		.css({
+        			width:"80px",
+        			height:thi.offsetHeight+"px",
+        			position:"absolute",
+        			left:get_abs_pos_x(thi)+thi.offsetWidth+10+"px",
+        			top:get_abs_pos_y(thi)+"px"
+        		})
+        		.attr({
+        			master_id:$(this).attr("id")
+        		})
+        		.appendTo($('body'));
+        	$pwd_strength_check_div.get(0).className="pwd_strength_check_div";
+        	var str=["弱","中","强"];
+        	for(var i=0;i<3;i++)
+        	{
+        		$('<div>')
+        			.html(str[i])
+        			.css({
+        				float:"left",
+						width:"20px",
+						height:"20px",
+						background:"#ccc",
+						marginLeft:"5px",
+						position:"relative",
+						top:(thi.offsetHeight-20)/2+"px",
+						textAlign:"center",
+						lineHeight:"20px",
+						borderRadius:"5px"
+        			})
+        			.appendTo($pwd_strength_check_div);
+        	}
+        }
+        $(this).focus(function()
+        {
+        	$(this).remove_err_msg();
+        	var $pwd_strength_check_divs=$pwd_strength_check_div.children();
+			 $pwd_strength_check_divs
+				  .css({
+				   background:"#ccc"
+				});
+        }).blur(function()
+        {
+        	if(options.confirm_input_reference_obj!=null)
+        	{
+        		var zz="/^"+options.confirm_input_reference_obj.val()+"$/";
+        		options.reg=eval("("+zz+")");
+        	}
+        	//var zz=eval("("+options.reg+")");
+        	var zz=options.reg;
+        	if(options.not_null_check==true&&$(this).val()=="")
+        	{
+	        			err_msg=options.null_msg;
+	        			thi.is_right=0;
+	        			$(this).show_err_msg({
+	        				err_msg:err_msg,
+	        				msg_left_add:options.msg_left_add,
+	        				err_msg_pos:options.err_msg_pos
+	        			})
+        	}
+        	if((options.not_null_check==true&&$(this).val()!="")||options.not_null_check==false)
+        	{
+        		if(zz.test($(this).val()))
+			        	{
+			        		if(options.pwd_strength_check==true)
+			        		{
+			        			var $pwd_strength_check_divs=$pwd_strength_check_div.children();
+			        			$pwd_strength_check_divs
+				        			.css({
+				        				background:"#ccc"
+				        			});
+				        		if(options.pwd_strength_check_config.reg3.test($(this).val()))
+				        		{
+				        			 $pwd_strength_check_divs.eq(2).css("background","rgb(15,224,44)"  )
+				        		}
+				        		else if(options.pwd_strength_check_config.reg2.test($(this).val()))
+				        		{
+				        			 $pwd_strength_check_divs.eq(1).css("background","rgb(198,155,167)"  )
+				        		}
+				        		else if(options.pwd_strength_check_config.reg1.test($(this).val()))
+				        		{
+				        			 $pwd_strength_check_divs.eq(0).css("background","red"  )
+				        		}
+			        		}
+			        		thi.is_right=1;
+			        		if(options.show_right_msg==true)
+			        		{
+			        			$(this).show_err_msg({
+					        		err_msg:"√",
+					        		msg_left_add:options.msg_left_add,
+					        		err_msg_pos:options.err_msg_pos
+				        		});
+				        		$('#'+thi.id+"_blur_err_msg_arraw").parent().css("color","purple");
+			        		}
+			        		
+			        	}
+			        	else
+			        	{
+			        		thi.is_right=0;
+			        		err_msg=options.blur_err_msg;
+				        	$(this).show_err_msg({
+		        				err_msg:err_msg,
+		        				msg_left_add:options.msg_left_add,
+		        				err_msg_pos:options.err_msg_pos,
+		        				width_decrease:options.width_decrease
+		        			})
+			        	}
+        	}
+     
+        });
+        return $(this);
+	},
+//-----------------------------------------------------------------------------------------------------------------------------
+//悬浮显示错误信息(严重警告:使用该方法后禁止在任何submit之前插入元素)
+	show_err_msg:function(options)
+	{
+		var $thi=$(this);
+		var thi=$thi.get(0);
+		var form_node=thi;
+		var form_index;
+		var set_form_index_for_cur_form=function()
+		{
+			form_node=form_node.parentNode;
+			var node_name=form_node.nodeName.toLowerCase();
+			if(node_name!="form")
+			{
+				set_form_index_for_cur_form();
+			}
+			else
+			{
+				form_index=$('form').index($(form_node));
+				$(form_node).attr("form_index",form_index);
+			}
+		}
+		set_form_index_for_cur_form();
+		var defaults={
+			err_msg:"亲，这个好像不对哦",
+			text_color:"deeppink",
+			msg_left_add:0,//指定err_msg这个div在x轴心上的偏移,
+			err_msg_pos:options.err_msg_pos,
+			width_decrease:0
+		}
+        var options = $.extend(defaults,options);
+        var err_msg=options.err_msg;
+        $thi.focus(function()
+        		{
+        			$thi.remove_err_msg();
+        		});
+		 var the_height=thi.offsetHeight;
+		 var the_top=get_abs_pos_y(thi);
+		 if(thi.type=="textarea")
+		 {
+		 	var $texts=$(form_node).find($('input[type=text]'));
+		 	if($texts.size()!=0)
+		 	{
+		 		var previous_height=the_height;
+		 		the_height=$texts.eq(0).outerHeight();
+		 		the_top=the_top+(previous_height-the_height)/2;
+		 	}
+		 	else
+		 	{
+		 		var $selects=$(form_node).find($('select'));
+			 	if($selects.size()!=0)
+			 	{
+			 		var previous_height=the_height;
+			 		the_height=$selects.eq(0).outerHeight();
+			 		the_top=the_top+(previous_height-the_height)/2;
+			 	}
+		 	}
+		 }
+		 if($('#'+thi.name+"_blur_err_msg_arraw"))
+		        	{
+		        		$('#'+thi.name+"_blur_err_msg_arraw").parent().remove();
+		        	}
+        $msg=
+	        	$("<div>")
+	        	.css({
+	        		width:err_msg.length*(the_height/2+2)+20-options.width_decrease+"px",
+	        		height:the_height+"px",
+	        		background:"rgb(182,206,218)",
+	        		position:"absolute",
+	        		left:options.err_msg_pos=="auto_left"?
+	        			(get_abs_pos_x(thi)-(err_msg.length*(the_height/2+2)+20-options.width_decrease)-20+"px"):(get_abs_pos_x(thi)+thi.offsetWidth+20+options.msg_left_add+"px"),
+	        		top:the_top+"px",
+	        		lineHeight:the_height+"px",
+	        		textAlign:"center",
+	        		borderRadius:"5px",
+	        		fontWeight:"bolder",
+	        		fontFamily:"微软雅黑",
+	        		color:options.text_color,
+	        		fontSize:the_height/2+2+"px",
+	        		zIndex:"1000000",
+	        		overflow:"visible"
+	        	})
+	        	.html(err_msg)
+	        	.appendTo($('body'));
+	        	$msg.get(0).className="dbx_form_xuan_fu_ti_shi dbx_form_xuan_fu_ti_shi"+form_index;
+	        	var msg=$msg.get(0);
+	        var $arraw;
+	    
+	       if(options.err_msg_pos=="auto_left")
+	        {
+	        	$arraw=make_arraw(6,"right",thi.name+"_blur_err_msg_arraw","rgb(182,206,218)",msg)
+	        	.css({
+	        		left:err_msg.length*(the_height/2+2)+20-options.width_decrease-2+"px"
+	        	})
+	        }
+	        else
+	        {
+	        	$arraw=make_arraw(6,"left",thi.name+"_blur_err_msg_arraw","rgb(182,206,218)",msg)
+	        	.css({
+	        		left:"-10px"
+	        	})
+
+
+	        }
+	        $arraw
+	        	.attr({
+	        		msg_left_add:options.msg_left_add,
+	        		err_msg_pos:options.err_msg_pos
+	        	})
+	        	.css({
+	        		position:"absolute",
+	        		top:(the_height-14)/2+"px"
+	        	})
+	        return $(this);
+	},
+//--------------------------------------------------------------------------------------------------------------
+remove_err_msg:function()
+{
+	var $thi=$(this);
+	var thi=$thi.get(0);
+	if($('#'+thi.name+"_blur_err_msg_arraw"))
+	{
+		$('#'+thi.name+"_blur_err_msg_arraw").parent().remove();
+	}
+},
+//--------------------------------------------------------------------------------------------------------------
+	//适合情况：select下拉菜单没有默认被选中项，且默认显示“请选择-----”等字样,如果对象时下拉菜单
+	must_be_valued:function(options)
+	{
+		var $thi=$(this);
+		var thi=$(this).get(0);
+		var defaults={
+			msg:"亲，请做出选择哦",
+			default_value:$thi.val()
+		};
+		var options=$.extend(defaults,options);
+		$thi.bind("change blur",function()
+		{
+		        		if($thi.val()==options.default_value)
+						{
+									$thi.show_err_msg({
+									err_msg:options.msg
+								});
+						}
+						else
+						{
+							$thi.show_err_msg({
+								err_msg:"√",
+								text_color:"purple"
+							})
+						}
+		});
+		return $(this);
+	},
+//--------------------------------------------------------------------------------------------------------------------------
+//(严重警告:使用该方法后禁止在任何submit之前插入元素)	
+	check_submit:function(options)
+	{
+		var defaults={
+			before_submit:function()
+			{
+				
+			}
+		}
+		var options=$.extend(defaults,options);
+		var $thi=$(this);
+		var thi=$thi.get(0);
+		var $form=$thi.closest('form');
+		var $inputs=$form.find($('input'));
+		var $selects=$form.find($('select'));
+		var $textarea=$form.find($('textarea'));
+		$thi.click(function()
+		{
+			options.before_submit();
+			$.each([$inputs,$selects,$textarea],function(k,$v)
+				{
+					$v.blur();
+				})
+			var $msgs=$('.dbx_form_xuan_fu_ti_shi'+$form.attr("form_index"));
+					var is_right=1;
+					var msgs_length=$msgs.size();
+					if(msgs_length==0)
+					{
+						is_right=1;
+					}
+					else
+					{	
+						for(var i=0;i<msgs_length;i++)
+						{
+							var $obj=$msgs.eq(i);
+							if($obj.text()!="√")
+							{
+								is_right=0;
+							}
+						}
+					}
+					if(is_right==1)
+					{
+						$form.submit();
+					}
+					else
+					{
+						return false;
+					}
+		})
+		return $(this);
+	},
+//------------------------------------------------------------------------------------------------------------------------------------
+	/*
+	 * 该插件运行前需要在模板页面建立一个表示xx_id的隐藏域，赋值为TP里分配过来的id字段的值
+	 * 该插件使用self_val字段表示该方法被调用的时候文本框里面的值：
+	 * 如果是编辑页面，则运行该插件之前不可以给检测唯一性的输入框对象赋值，否则就会报错
+	 * 如果参数里没有hidden_input_which_val_equals_thi_value这一项，或者虽然有这一项但该项所指向对象的val值="",，则不检测自身
+	 * 调用参考：
+	 * $('#brand_name').bool_ajax_check({
+				table_name:"brand",
+				exist_msg:"亲，该品牌已经存在，请更换其他",
+				hidden_input_which_val_equals_thi_value:$('input[name=brand_id]')
+		});
+	 */
+	bool_ajax_check:function(options)
+	{
+		var defaults={
+			table_name:"",
+			exist_msg:"亲，已经被使用了哦，请更换其他",
+			hidden_input_which_val_equals_thi_value:null,
+			check_caller:null,
+			success:null,
+			failed:null,
+			msg_left_add:0,
+			err_msg_pos:options.err_msg_pos
+		};
+		var options=$.extend(defaults,options);
+		var $thi=$(this);
+		var self_val=$thi.val();
+		var carry_check=function()
+		{
+			if(options.table_name!=""&&options.url!="")
+			{
+				var field=$thi.attr("name");
+				var val=$thi.val();
+				var data="field="+field+"&val="+val+"&table_name="+options.table_name;
+				if(options.hidden_input_which_val_equals_thi_value!=null)
+				{
+					data=data+"&self_val="+self_val;
+				}
+				if($thi.val()!="")
+				{
+					$.ajax({
+						type:"POST",
+						url:"Index.php?m=Plugin&a=checkIfExist",
+						async:false,
+						data:data,
+						success:function(msg)
+						{
+							if(options.check_caller==null)
+							{
+								if(parseInt(msg)==1)
+								{
+									$thi.show_err_msg({
+										err_msg:options.exist_msg,
+										msg_left_add:options.msg_left_add,
+										err_msg_pos:options.err_msg_pos
+									})
+								}
+							}
+							else
+							{
+								if(msg=="")
+								{
+									options.success();
+								}
+								else if(parseInt(msg)==1)
+								{
+									options.failed();
+								}
+							}
+						}
+					})
+				}
+				
+			}
+		}
+		if(options.check_caller==null)
+		{
+			$(this).blur(function()
+			{
+				carry_check();
+			})
+		}
+		else
+		{
+			options.check_caller.click(function()
+			{
+				carry_check();
+			})
+		}
+		return $thi;
+	}
+})
+//生产箭头
+function make_arraw(width,
+					arraw_direction,
+					id_of_the_arraw,
+					color_of_the_arraw,
+					parent)
+{
+	var oo=document.createElement("div");
+	oo.id=id_of_the_arraw;
+	oo.style.width="0";
+	oo.style.height="0";
+	oo.style.borderStyle="solid";
+	oo.style.cursor="pointer";
+	oo.style.borderColor=color_of_the_arraw;
+	oo.style.borderWidth=width+"px";
+	if(arraw_direction=="right")
+	{
+		oo.style.borderColor="transparent transparent transparent "+color_of_the_arraw;
+	}
+	else if(arraw_direction=="up")
+	{
+		oo.style.borderColor="transparent transparent "+color_of_the_arraw+" transparent";
+	}
+	else if(arraw_direction=="left")
+	{
+		oo.style.borderColor="transparent "+color_of_the_arraw+" transparent transparent";
+	}
+	else if(arraw_direction=="down")
+	{
+		oo.style.borderColor=color_of_the_arraw+" transparent transparent transparent";
+	}
+	if(typeof(parent)=="string")
+	{
+		if(parent=="body")
+		{
+			document.body.appendChild(oo);
+		}
+		else if(parent!="body")
+		{
+			document.getElementById(parent).appendChild(oo);
+		}
+	}
+	else if(typeof(parent)=="object")
+	{
+		parent.appendChild(oo);
+	}
+	return $(oo);
+}
+//---------------------------------------------------------------------------------------
+//获取元素绝对坐标
+//（绝对X坐标）
+function get_abs_pos_x(obj)
+{
+	var ol=obj.offsetLeft;
+	if(obj.offsetParent!=null)
+	{
+		ol+=get_abs_pos_x(obj.offsetParent);
+	}
+	return ol;
+}
+//（绝对y坐标）
+function get_abs_pos_y(obj)
+{
+	var ot=obj.offsetTop;
+	if(obj.offsetParent!=null)
+	{
+		ot+=get_abs_pos_y(obj.offsetParent);
+	}
+	return ot;
+}
+//----------------------------------------------------------------------------------------------
+$(function()
+{
+	var $forms=$('*').find($('form'));
+	var $form_elements=$forms.find($('*[name]'));
+	if($form_elements.size()!=0)
+	{
+		$form_elements.each(function()
+		{
+			var type=$(this).attr("type");
+			if(type!="radio"&&type!="checkbox"&&$(this).attr("id")==undefined)
+			{
+				$(this).attr("id",$(this).attr("name"));
+			}
+		});
+	}
+	var $submits=$(':submit');
+	$(window).resize(function()
+	{
+		if($('.dbx_form_xuan_fu_ti_shi').size()!=0)
+		{
+			$('.dbx_form_xuan_fu_ti_shi').each(function()
+			{
+				var $arraw=$(this).children().eq(0);
+				var arraw_id=$arraw.attr("id");
+				var msg=$arraw.parent().text();
+				var id=arraw_id.substring(0,arraw_id.indexOf("blur_err_msg_arraw")-1);
+				var obj=document.getElementById(id);
+				if(msg!="")
+				{
+					$(obj).show_err_msg({
+						err_msg:msg,
+						msg_left_add:parseInt($('#'+arraw_id).attr('msg_left_add')),
+						err_msg_pos:parseInt($('#'+arraw_id).attr('err_msg_pos')),
+						err_msg_pos:null
+					})
+				}
+			})
+
+
+		}
+		var $pwd_strength_check_div=$('.pwd_strength_check_div');
+		if($pwd_strength_check_div.size()!=0)
+		{
+			$pwd_strength_check_div.each(function()
+			{
+				var master=$('#'+$(this).attr("master_id")).get(0);
+				$(this).css({
+					left:get_abs_pos_x(master)+master.offsetWidth+"px"
+				})
+			})
+		}
+	});
+})
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		$('#auto_login,#auto_login_msg').click(function()
+		{
+			var $o=$('#if_auto_login');
+			$o.val(1-$o.val());
+			$o.val()==1?$('#auto_login').html("√"):$('#auto_login').html("");
+		})
+		$('#log_in_form input').focus(function()
+		{
+			document.getElementById("log_in_form").if_focus=true;
+			$('#register_form input').each(function()
+			{
+				$(this).remove_err_msg();
+			})
+		}).blur(function()
+		{
+			document.getElementById("log_in_form").if_focus=false;
+		})
+		$('#register_form input').focus(function()
+		{
+			document.getElementById("register_form").if_focus=true;
+			$('#log_in_form input').each(function()
+			{
+				$(this).remove_err_msg();
+			})
+		}).blur(function()
+		{
+			document.getElementById("register_form").if_focus=false;
+		})
+		show_in_center(document.getElementById("spliter"));
+		$('#account')
+			.form_msg({
+				blur_err_msg:"亲，用户名必须6-20位,字母数字和下划线,开头不能为数字",
+				reg:/^[a-zA-Z_]\w{5,20}$/,
+				err_msg_pos:"auto_left"
+			})
+		.bool_ajax_check({
+					table_name:"music_accounts",
+					exist_msg:"亲，该账号已经存在，请更换其他",
+					err_msg_pos:"auto_left"
+			});
+		$('#register_pwd_input_text').form_msg({
+			blur_err_msg:"亲，密码必须6-16位",
+			reg:/^[a-z0-9!@#$%^&*]{6,16}$/,
+				err_msg_pos:"auto_left"
+		});
+		$('#register_re_pwd_input_text').form_msg({
+			blur_err_msg:"亲，两次密码输入不一致哦",
+			not_null_check:false,
+			confirm_input_reference_obj:$('#register_pwd_input_text'),
+			err_msg_pos:"auto_left"
+		});
+		$('#register_email_input_text').form_msg({
+			blur_err_msg:"亲，邮箱地址不合法哦",
+			null_msg:"亲，请填写邮箱哦",
+			reg:/^\w+@\w+\.(com|cn|net)$/,
+				err_msg_pos:"auto_left"
+		});
+		$.yzm_system({
+			$input:$('#log_in_yan_zheng_ma_input_text'),
+			$img:$('#yan_zheng_ma_img'),
+			$click_to_change_yzm_obj:$('.change_yan_zheng_ma')
+		})
+		$('.forget_pwd,.change_yan_zheng_ma,#auto_login_msg').hover(function()
+		{
+			$(this).css("text-decoration","underline");
+		},function()
+		{
+			$(this).css("text-decoration","none");
+		})
+		$('#register_and_log_in #close').click(function()
+		{
+			$('#log_in_zhe_zhao').remove();
+			$('.dbx_form_xuan_fu_ti_shi').remove();
+			$('#register_and_log_in').css({
+				top:screen.height+"px"
+			}).removeClass("slideExpandUp")
+			.addClass("slideDown");
+			setTimeout(function()
+			{
+				$('#register_and_log_in').hide();
+			},1000);
+		})
+		$(':submit').each(function()
+		{
+			$(this).check_submit();
+		})
+	})()
+</script>
